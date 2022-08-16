@@ -19,29 +19,32 @@ class App extends Component {
     }
 
     incrementHandler = (id) => {
-        //clone product
+        // find product seleted
+        const index = this.state.products.findIndex((item) => item.id === id);
+        // clone the seleted index and update qty
+        const product = {...this.state.products[index]};
+        product.quntity++;
+        // update product
         const products = [...this.state.products];
-        // find item
-        const selectedItem = products.find(p => p.id === id);
-        // add one item quantity
-        selectedItem.quntity++;
-        // set new item
+        products[index] = product;
         this.setState({products})
     }
     
     decrementHandler = (id) => {
-        //clone product
-        const products = [...this.state.products];
-        // find item
-        const selectedItem = products.find(p => p.id === id);
-
-        if (selectedItem.quntity === 1){
-            const filteredProducts = products.filter(p => p.id !== id)
+        // find product seleted
+        const index = this.state.products.findIndex((item) => item.id === id);
+        const product = {...this.state.products[index]};
+        if (product.quntity === 1) {
+            // remove product
+            const filteredProducts = this.state.products.filter(p => p.id !== id);
             this.setState({products: filteredProducts})
+            
         } else {
-            // minus one item quantity
-            selectedItem.quntity--;
-            // set new item
+            // clone the seleted index and update qty
+            const products = [...this.state.products];
+            product.quntity--;
+            // update product
+            products[index] = product;
             this.setState({products})
         }
     }
