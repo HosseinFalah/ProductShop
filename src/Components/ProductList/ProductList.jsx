@@ -5,16 +5,17 @@ import Product from "../Product/Product";
 
 class ProductList extends Component {
     render() {
+        const { products, onRemove, onIncrement, onDecrement } = this.props
         return (
             <div>
-                {!this.props.products.length && <div>there is no product in cart</div>}
-                {this.props.products.map((product) => (
+                {!products.length && <div>there is no product in cart</div>}
+                {products.map((product) => (
                     <Product 
                         key={uuidv4()} 
                         product={product}
-                        onDelete={() => this.props.onRemove(product.id)}
-                        onIncrement={() => this.props.onIncrement(product.id)}
-                        onDecrement={() => this.props.onDecrement(product.id)}
+                        onDelete={() => onRemove(product.id)}
+                        onIncrement={() => onIncrement(product.id)}
+                        onDecrement={() => onDecrement(product.id)}
                         />
                     ))
                 }
